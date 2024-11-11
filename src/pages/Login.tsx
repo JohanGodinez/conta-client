@@ -1,20 +1,35 @@
+import { FormEvent, useState } from "react";
 import { Button, Input } from "../components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const hanldeSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    console.log(email, password);
+
+    navigate('/')
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-textPrimary p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background text-textSecondary p-4">
       <div className="bg-secondary rounded-lg shadow-md w-full max-w-md p-6">
         <h2 className="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={hanldeSubmit}>
           <div>
-            <label htmlFor="username" className="block font-medium mb-1">
-              Usuario
+            <label htmlFor="email" className="block font-medium mb-1">
+              Email
             </label>
             <Input
-              id="username"
+              id="email"
               type="text"
-              placeholder="Ingrese su usuario"
+              placeholder="usuario@correo.com"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
             />
           </div>
@@ -25,7 +40,9 @@ export const Login = () => {
             <Input
               id="password"
               type="password"
-              placeholder="Ingrese su contraseña"
+              placeholder=""
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               required
             />
           </div>
